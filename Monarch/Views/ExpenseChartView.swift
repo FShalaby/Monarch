@@ -59,5 +59,5 @@ struct ExpenseChartView: View {
 }
 
 #Preview {
-    ExpenseChartView(viewModel: ExpenseViewModel())
+    ExpenseChartView(viewModel: ExpenseViewModel(userId: "previewUser"))
 }

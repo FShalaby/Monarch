@@ -8,17 +8,19 @@
 import Foundation
 class ExpenseViewModel:ObservableObject
 {
+    let userId: String
     @Published var expense: [Expense]=[]
     @Published var categoryTotals: [CategoryTotal] = []
-    init()
+    init(userId: String)
     {
-        loadExpense()
+        self.userId = userId
+        loadExpense(for: userId)
         categoryTotal()
     }
     
-    func addExpense(name: String, category:Category,price:Double, date:Date)
+    func addExpense(name: String, category: Category, price: Double, date: Date, userId: String)
     {
-        let newExpense = Expense(id: UUID(), category: category, name: name, price: price, date: date)
+        let newExpense = Expense(id: UUID(), userid: userId, category: category, name: name, price: price, date: date)
         expense.append(newExpense)
         saveExpenses()
     }
@@ -50,20 +52,19 @@ class ExpenseViewModel:ObservableObject
         }
     }
     
-    func loadExpense()
-    {
+    func loadExpense(for userId: String) {
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("expenses.json")
         do {
             let data = try Data(contentsOf: url)
             let decoded = try JSONDecoder().decode([Expense].self, from: data)
-            self.expense = decoded
-            print("✅ Expenses loaded: \(decoded.count) items")
+            self.expense = decoded.filter { $0.userid == userId }
+            print("✅ Expenses loaded for user: \(userId) (\(expense.count) items)")
         } catch {
             print("❌ Error loading expenses:", error)
         }
-        
     }
+
     
     func categoryTotal() {
         let groupedCategories = Dictionary(grouping: expense, by: { $0.category })

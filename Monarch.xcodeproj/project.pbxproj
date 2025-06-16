@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A45A257A2DFFA34900290ED5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A45A25792DFFA34900290ED5 /* GoogleService-Info.plist */; };
+		A45A257D2DFFA52500290ED5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A45A257C2DFFA52500290ED5 /* FirebaseAuth */; };
+		A45A257F2DFFA52500290ED5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A45A257E2DFFA52500290ED5 /* FirebaseCore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		A4AB46C72DFCE4B90010718F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A45A25792DFFA34900290ED5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A4AB46B92DFCE4B40010718F /* Monarch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monarch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4AB46C62DFCE4B90010718F /* MonarchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonarchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4AB46D02DFCE4BA0010718F /* MonarchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonarchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A45A257F2DFFA52500290ED5 /* FirebaseCore in Frameworks */,
+				A45A257D2DFFA52500290ED5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +84,7 @@
 		A4AB46B02DFCE4B40010718F = {
 			isa = PBXGroup;
 			children = (
+				A45A25792DFFA34900290ED5 /* GoogleService-Info.plist */,
 				A4AB46BB2DFCE4B40010718F /* Monarch */,
 				A4AB46C92DFCE4B90010718F /* MonarchTests */,
 				A4AB46D32DFCE4BA0010718F /* MonarchUITests */,
@@ -112,6 +122,8 @@
 			);
 			name = Monarch;
 			packageProductDependencies = (
+				A45A257C2DFFA52500290ED5 /* FirebaseAuth */,
+				A45A257E2DFFA52500290ED5 /* FirebaseCore */,
 			);
 			productName = Monarch;
 			productReference = A4AB46B92DFCE4B40010718F /* Monarch.app */;
@@ -195,6 +207,9 @@
 			);
 			mainGroup = A4AB46B02DFCE4B40010718F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A45A257B2DFFA52500290ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4AB46BA2DFCE4B40010718F /* Products */;
 			projectDirPath = "";
@@ -212,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A45A257A2DFFA34900290ED5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +574,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A45A257B2DFFA52500290ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A45A257C2DFFA52500290ED5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A45A257B2DFFA52500290ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A45A257E2DFFA52500290ED5 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A45A257B2DFFA52500290ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A4AB46B12DFCE4B40010718F /* Project object */;
 }

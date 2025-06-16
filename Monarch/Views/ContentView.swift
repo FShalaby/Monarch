@@ -2,15 +2,21 @@ import SwiftUI
 import Charts
 
 struct ContentView: View {
-    @StateObject var viewModel = ExpenseViewModel()
+    @ObservedObject var authViewModel: UserAuthViewModel
+    @StateObject var viewModel: ExpenseViewModel
+
     @State private var selectedCategory: Category? = nil
     @State private var showAddExpense = false
     @State private var editingExpense: Expense? = nil
     @State private var showEditExpense = false
 
-    // Split filtering into its own variable to avoid long expressions
     var filteredExpenses: [Expense] {
-        viewModel.expense.filter { selectedCategory == nil || $0.category == selectedCategory }
+        let all = viewModel.expense
+        if let selected = selectedCategory {
+            return all.filter { $0.category == selected }
+        } else {
+            return all
+        }
     }
 
     var total: Double {
@@ -24,43 +30,21 @@ struct ContentView: View {
                     .font(.headline)
                     .bold()
                     .padding(.bottom, 8)
+
                 ExpenseChartView(viewModel: viewModel)
                     .frame(height: 250)
                     .padding(.horizontal)
+
                 List {
                     ForEach(filteredExpenses) { item in
-                        HStack(alignment: .top, spacing: 12) {
-                            Image(systemName: item.category.icon)
-                                .foregroundColor(item.category.color)
-                                .font(.title2)
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.category.rawValue.capitalized)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                        ExpenseRow(item: item)
+                            .onTapGesture {
+                                editingExpense = item
+                                showEditExpense = true
                             }
-
-                            Spacer()
-
-                            VStack(alignment: .trailing, spacing: 4) {
-                                Text("$\(item.price, specifier: "%.2f")")
-                                    .font(.subheadline)
-                                Text(item.date.formatted(date: .abbreviated, time: .omitted))
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .padding(.vertical, 6)
-                        .onTapGesture {
-                            editingExpense = item
-                            showEditExpense = true
-                        }
                     }
                     .onDelete(perform: viewModel.delete)
                 }
-
             }
             .navigationTitle("Expenses")
             .toolbar {
@@ -77,6 +61,12 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill")
                             .imageScale(.large)
+                    }
+                }
+
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Logout") {
+                        authViewModel.logout()
                     }
                 }
 
@@ -100,5 +90,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(
+        authViewModel: UserAuthViewModel(),
+        viewModel: ExpenseViewModel(userId: "previewUser")
+    )
 }

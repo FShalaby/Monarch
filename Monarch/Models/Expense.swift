@@ -55,6 +55,7 @@ extension Category
 struct Expense: Identifiable, Codable
 {
     let id:UUID
+    var userid: String
     var category:Category
     var name:String
     var price:Double

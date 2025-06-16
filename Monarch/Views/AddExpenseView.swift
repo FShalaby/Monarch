@@ -36,7 +36,7 @@ struct AddExpenseView: View {
                         if name.trimmingCharacters(in: .whitespaces).isEmpty || price <= 0 {
                                 showAlert = true
                             } else {
-                                viewModel.addExpense(name: name, category: category, price: price, date: date)
+                                viewModel.addExpense(name: name, category: category, price: price, date: date, userId: viewModel.userId)
                                 dismiss()
                             }
                     }
@@ -61,5 +61,5 @@ struct AddExpenseView: View {
 }
 
 #Preview {
-    AddExpenseView(viewModel: ExpenseViewModel())
+    AddExpenseView(viewModel: ExpenseViewModel(userId: "previewUser"))
 }

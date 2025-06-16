@@ -55,9 +55,10 @@ struct EditExpenseView: View {
 
 #Preview {
     EditExpenseView(
-        viewModel: ExpenseViewModel(),
+        viewModel: ExpenseViewModel(userId: "previewUser"),
         expense: Expense(
             id: UUID(),
+            userid: "previewUser",
             category: .food,
             name: "Sample Expense",
             price: 12.99,
